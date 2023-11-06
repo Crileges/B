@@ -35,5 +35,4 @@ async function queryDatabase(sqlQuery) {
 module.exports = {
   connectToDatabase,
   queryDatabase,
-  // Fügen Sie hier Ihre anderen Datenbankfunktionen hinzu
 };

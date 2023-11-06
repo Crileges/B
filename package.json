@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./HttpServer.js"
+    "start": "node ./httpServer.js"
   },
   "author": "Thorge Breitzmann",
   "license": "ISC",
