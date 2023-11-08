@@ -5,10 +5,6 @@ const dbFunctions = require("../database/dbFunctions");
 
 let currentUser = "";
 
-router.get("/", (req, res) => {
-  //res.send("Hello World");
-});
-
 router.get("/rolle", async (req, res) => {
   const username = currentUser; // Use req.query for query parameters
 
