@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create User</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <form
+      id="createUserForm"
+      action="http://127.0.0.1:8080/api/benutzerverwaltung"
+      method="POST"
+    >
+      <h2>Create User</h2>
+      <label for="userID">User ID:</label>
+      <input
+        type="text"
+        id="userID"
+        name="userID"
+        required
+        placeholder="Enter User ID"
+      /><br />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        placeholder="Enter Password"
+      /><br />
+
+      <label for="rolle">Role:</label>
+      <input
+        type="number"
+        id="rolle"
+        name="rolle"
+        required
+        placeholder="Enter Role"
+        max="5"
+        min="0"
+      /><br />
+
+      <button type="button" onclick="createUser()">Create User</button>
+    </form>
+
+    <script>
+      async function createUser() {
+        const form = document.getElementById("createUserForm");
+        const formData = {
+          userID: form.elements.userID.value,
+          password: form.elements.password.value,
+          rolle: parseInt(form.elements.rolle.value),
+        };
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (response.ok) {
+            console.log("User created successfully");
+            // Optionally, you can redirect or perform other actions upon success
+          } else {
+            console.error("Error creating user:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error creating user:", error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
