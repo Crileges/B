@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const loginRoutes = require("./login/LoginRoutes");
+const loginRoutes = require("./endpoints/login/LoginRoutes");
 const dbFunctions = require("./database/dbFunctions");
-const objekteRoutes = require("./objekte/ObjekteRoutes");
-const patientenRoutes = require("./patienten/patientenRoute");
+const objekteRoutes = require("./endpoints/objekte/ObjekteRoutes");
+const patientenRoutes = require("./endpoints/patienten/patientenRoute");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));

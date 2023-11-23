@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menü</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+      }
+
+      button:hover {
+        background-color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Option auswählen</h2>
+
+    <button onclick="zurAnwendung()">Anwendung</button>
+    <button onclick="zurBenutzerverwaltung()">Benutzerverwaltung</button>
+
+    <script>
+      function zurAnwendung() {
+        window.location.href = "main.html";
+      }
+      function zurBenutzerverwaltung() {
+        window.location.href = "benutzerverwaltung.html";
+      }
+    </script>
+  </body>
+</html>

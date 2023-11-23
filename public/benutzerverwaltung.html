@@ -13,7 +13,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        min-height: 100vh;
       }
 
       form {
@@ -21,6 +21,7 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Adjust the width as needed */
       }
 
       h2 {
@@ -34,8 +35,9 @@
         color: #555;
       }
 
-      input {
-        width: 100%;
+      input,
+      select {
+        width: calc(100% - 16px);
         padding: 8px;
         margin-bottom: 16px;
         box-sizing: border-box;
@@ -48,10 +50,11 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        width: 100%;
       }
 
       button:hover {
-        background-color: #007bff;
+        background-color: #0056b3;
       }
     </style>
   </head>
@@ -69,7 +72,7 @@
         name="userID"
         required
         placeholder="Enter User ID"
-      /><br />
+      />
 
       <label for="password">Password:</label>
       <input
@@ -78,18 +81,18 @@
         name="password"
         required
         placeholder="Enter Password"
-      /><br />
+      />
 
       <label for="rolle">Role:</label>
-      <input
-        type="number"
-        id="rolle"
-        name="rolle"
-        required
-        placeholder="Enter Role"
-        max="5"
-        min="0"
-      /><br />
+      <select id="rolle" name="rolle" required>
+        <option value="" selected disabled hidden>Select Role</option>
+        <option value="0">Admin</option>
+        <option value="1">Arzt</option>
+        <option value="2">Pflegekraft</option>
+        <option value="3">Bettenmanagement</option>
+        <option value="4">Reinigungskraft</option>
+        <option value="5">Hausmeister</option>
+      </select>
 
       <button type="button" onclick="createUser()">Create User</button>
     </form>

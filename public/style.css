@@ -44,6 +44,23 @@ body {
   }
   
   .login-form input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
+  }
+
+  .abmeldenBtn{
+    position: fixed; 
+    bottom: 10%; 
+    right: 5%;
+    background-color: #59CB86;
+    text-decoration: none;
+    box-shadow: none;
+    border: none;
+    padding-top:1%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 10px;
+    font-size: small;
+    color: white;
   }
   

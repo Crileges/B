@@ -8,3 +8,5 @@ Content-Type: application/json
     "password": "securepassword",
     "rolle": 0
 }
+###
+GET http://127.0.0.1:8080/senstower
