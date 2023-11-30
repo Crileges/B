@@ -11,8 +11,9 @@
         margin: 0;
         padding: 0;
         display: flex;
-        align-items: center;
+        flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-start;
         min-height: 100vh;
       }
 
@@ -22,11 +23,14 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 300px; /* Adjust the width as needed */
+        margin: 10px;
+        box-sizing: border-box;
       }
 
       h2 {
         text-align: center;
         color: #333;
+        margin-top: 0;
       }
 
       label {
@@ -55,6 +59,30 @@
 
       button:hover {
         background-color: #0056b3;
+      }
+
+      #userList {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Adjust the width as needed */
+        margin: 10px;
+        box-sizing: border-box;
+      }
+
+      #userList h2 {
+        margin-bottom: 10px;
+      }
+
+      #userListItems {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #userListItems li {
+        margin-bottom: 8px;
       }
     </style>
   </head>
@@ -97,6 +125,28 @@
       <button type="button" onclick="createUser()">Create User</button>
     </form>
 
+    <form
+      id="deleteUserForm"
+      action="http://127.0.0.1:8080/api/benutzerverwaltung/"
+      method="DELETE"
+    >
+      <h2>Delete User</h2>
+      <label for="deleteUserID">User ID to Delete:</label>
+      <input
+        type="text"
+        id="deleteUserID"
+        name="deleteUserID"
+        required
+        placeholder="Enter User ID to Delete"
+      />
+
+      <button type="button" onclick="deleteUser()">Delete User</button>
+    </form>
+    <div id="userList">
+      <h2>User List</h2>
+      <ul id="userListItems"></ul>
+    </div>
+
     <script>
       async function createUser() {
         const form = document.getElementById("createUserForm");
@@ -117,7 +167,6 @@
 
           if (response.ok) {
             console.log("User created successfully");
-            // Optionally, you can redirect or perform other actions upon success
           } else {
             console.error("Error creating user:", response.statusText);
           }
@@ -125,6 +174,61 @@
           console.error("Error creating user:", error.message);
         }
       }
+    </script>
+    <script>
+      async function deleteUser() {
+        const form = document.getElementById("deleteUserForm");
+        const formData = {
+          deleteUserID: form.elements.deleteUserID.value,
+        };
+
+        try {
+          const response = await fetch(form.action, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (response.ok) {
+            console.log("User deleted successfully");
+          } else {
+            console.error("Error deleting user:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error deleting user:", error.message);
+        }
+      }
+    </script>
+    <script>
+      async function fetchAllUsers() {
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:8080/api/benutzerverwaltung"
+          );
+          const responseText = await response.text();
+          console.log("Raw Response Text:", responseText);
+
+          if (response.ok) {
+            const users = JSON.parse(responseText);
+            console.log("All Users:", users);
+            const userListItems = document.getElementById("userListItems");
+            userListItems.innerHTML = ""; // Clear previous content
+
+            users.forEach((user) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = `UserID: ${user.userID}, Role: ${user.rolle}`;
+              userListItems.appendChild(listItem);
+            });
+          } else {
+            console.error("Error fetching users:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error fetching users:", error.message);
+        }
+      }
+      fetchAllUsers();
     </script>
   </body>
 </html>

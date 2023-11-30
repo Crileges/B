@@ -5,6 +5,7 @@ const loginRoutes = require("./endpoints/login/LoginRoutes");
 const dbFunctions = require("./database/dbFunctions");
 const objekteRoutes = require("./endpoints/objekte/ObjekteRoutes");
 const patientenRoutes = require("./endpoints/patienten/patientenRoute");
+const benutzerverwaltungRoutes = require("./endpoints/benutzerverwaltung/benutzerverwaltungRoutes");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,6 +19,7 @@ app.use(express.static("public"));
 app.use("/", loginRoutes);
 app.use("/", objekteRoutes);
 app.use("/", patientenRoutes);
+app.use("/", benutzerverwaltungRoutes);
 
 // Error Handler for 404 and 500 responses
 app.use((err, req, res, next) => {

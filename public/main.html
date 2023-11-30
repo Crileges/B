@@ -7,7 +7,14 @@
     <title>Unity WebGL Player | B</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0">
-    <button class="abmeldenBtn" onclick="sendGetRequest()">Abmelden</button>
+    <button
+      style="visibility: hidden"
+      class="abmeldenBtn"
+      onclick="sendGetRequest()"
+      id="abmeldenBtn"
+    >
+      Abmelden
+    </button>
     <canvas
       id="unity-canvas"
       width="auto"
@@ -40,9 +47,14 @@
         companyName: "Senstower",
         productName: "B",
         productVersion: "0.1",
+      }).then(() => {
+        setTimeout(function () {
+          var button = document.getElementById("abmeldenBtn");
+          button.style.visibility = "visible";
+        }, 3000);
       });
       function sendGetRequest() {
-        location.href = "";
+        location.href = "/";
 
         fetch("/logout", {
           method: "GET",

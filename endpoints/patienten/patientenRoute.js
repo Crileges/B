@@ -4,7 +4,6 @@ const router = express.Router();
 const dbFunctions = require("../../database/dbFunctions");
 
 router.get("/patientenAll", async (req, res) => {
-  //const query = "SELECT * FROM senstower.patient";
   const query = "SELECT * FROM senstower.patient";
   try {
     let result = await dbFunctions.queryDatabase(query);

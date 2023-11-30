@@ -86,29 +86,4 @@ router.post("/senstower", async (req, res) => {
   }
 });
 
-router.post("/api/benutzerverwaltung", async (req, res) => {
-  const userID = req.body.userID;
-  const password = req.body.password;
-  const rolle = req.body.rolle;
-
-  const query = `INSERT INTO senstower."user" ("userID", "password", "rolle") VALUES ('${userID}', '${password}', ${rolle})`;
-  try {
-    const result = await dbFunctions.queryDatabase(query);
-    res.status(200).send(result);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ Error: err });
-  }
-});
-
-router.get("/benutzerverwaltung", (req, res) => {
-  const filePath = path.join(
-    __dirname,
-    "..",
-    "public",
-    "benutzerverwaltung.html"
-  );
-  res.sendFile(filePath);
-});
-
 module.exports = router;
