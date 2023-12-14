@@ -6,6 +6,7 @@ const dbFunctions = require("./database/dbFunctions");
 const objekteRoutes = require("./endpoints/objekte/ObjekteRoutes");
 const patientenRoutes = require("./endpoints/patienten/patientenRoute");
 const benutzerverwaltungRoutes = require("./endpoints/benutzerverwaltung/benutzerverwaltungRoutes");
+const config = require("./public/config");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,8 +33,7 @@ app.use((req, res, next) => {
 });
 
 const port = 8080;
-const ipAddress = "127.0.0.1";
-//const ipAddress = "10.10.100.41";
+const ipAddress = config.ipAddress;
 
 app.listen(port, ipAddress, () => {
   console.log(

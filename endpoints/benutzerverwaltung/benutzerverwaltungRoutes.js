@@ -38,7 +38,7 @@ router.get("/api/benutzerverwaltung", async (req, res) => {
   const selectQuery = 'SELECT * FROM senstower."user"';
   try {
     const result = await dbFunctions.queryDatabase(selectQuery);
-    console.log(result.rows);
+    console.log(result);
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(result);
   } catch (err) {

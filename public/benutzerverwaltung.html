@@ -66,7 +66,7 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px; /* Adjust the width as needed */
+        width: 400px; /* Adjust the width as needed */
         margin: 10px;
         box-sizing: border-box;
       }
@@ -84,16 +84,26 @@
       #userListItems li {
         margin-bottom: 8px;
       }
+
+      #zurückBtn {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Adjust the width as needed */
+        margin: 10px;
+        box-sizing: border-box;
+      }
     </style>
   </head>
   <body>
     <form
       id="createUserForm"
-      action="http://127.0.0.1:8080/api/benutzerverwaltung"
+      action="http://127.0.0.1:8080/api/benutzerverwaltung/"
       method="POST"
     >
       <h2>Create User</h2>
-      <label for="userID">User ID:</label>
+      <label for="userID">Username:</label>
       <input
         type="text"
         id="userID"
@@ -105,8 +115,16 @@
       <label for="password">Password:</label>
       <input
         type="password"
-        id="password"
-        name="password"
+        id="password1"
+        name="password1"
+        required
+        placeholder="Enter Password"
+      />
+      <label for="password">Password wiederholen:</label>
+      <input
+        type="password"
+        id="password2"
+        name="password2"
         required
         placeholder="Enter Password"
       />
@@ -131,7 +149,7 @@
       method="DELETE"
     >
       <h2>Delete User</h2>
-      <label for="deleteUserID">User ID to Delete:</label>
+      <label for="deleteUserID">Username to Delete:</label>
       <input
         type="text"
         id="deleteUserID"
@@ -146,16 +164,24 @@
       <h2>User List</h2>
       <ul id="userListItems"></ul>
     </div>
+    <div id="zurückBtn">
+      <button type="button" onclick="zurück()">Zurück</button>
+    </div>
 
     <script>
+      function zurück() {
+        window.location.href = "menu.html";
+      }
       async function createUser() {
         const form = document.getElementById("createUserForm");
+        if (!(form.elements.password1.value == form.elements.password2.value)) {
+          return;
+        }
         const formData = {
           userID: form.elements.userID.value,
-          password: form.elements.password.value,
+          password: form.elements.password1.value,
           rolle: parseInt(form.elements.rolle.value),
         };
-
         try {
           const response = await fetch(form.action, {
             method: "POST",
@@ -172,6 +198,16 @@
           }
         } catch (error) {
           console.error("Error creating user:", error.message);
+        }
+        var inputs = form.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+          if (inputs[i].type === "text" || inputs[i].type === "password") {
+            inputs[i].value = "";
+          }
+        }
+        var selects = form.getElementsByTagName("select");
+        for (var i = 0; i < selects.length; i++) {
+          selects[i].selectedIndex = 0;
         }
       }
     </script>
@@ -218,7 +254,28 @@
 
             users.forEach((user) => {
               const listItem = document.createElement("li");
-              listItem.textContent = `UserID: ${user.userID}, Role: ${user.rolle}`;
+              var role;
+              switch (user.rolle) {
+                case 0:
+                  role = "Admin";
+                  break;
+                case 1:
+                  role = "Arzt";
+                  break;
+                case 2:
+                  role = "Pflegekraft";
+                  break;
+                case 3:
+                  role = "Bettenmanagement";
+                  break;
+                case 4:
+                  role = "Reinigungskraft";
+                  break;
+                case 5:
+                  role = "Hausmeister";
+                  break;
+              }
+              listItem.textContent = `UserID: ${user.userID}, Rolle: ${role}`;
               userListItems.appendChild(listItem);
             });
           } else {
